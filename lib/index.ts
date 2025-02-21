@@ -75,6 +75,12 @@ export function getEtherscanLink(
     return `${url}${
       type === 'transaction' ? 'trade/trxDetail' : 'addressDetail/index'
     }?hash=${data}`;
+  } else if (chainId === ChainId.TRXTESTNET) {
+    const url = 'https://shasta.tronscan.org/#/';
+    return `${url}${type}/${data}`;
+  } else if (chainId === ChainId.TRXMAINNET) {
+    const url = 'https://tronscan.org/#/';
+    return `${url}${type}/${data}`;
   } else {
     prefix =
       ETHERSCAN_PREFIXES[chainId || ChainId.MAINNET]?.blockExplorers?.default

@@ -153,6 +153,7 @@ const OrderInfo = React.forwardRef(
       () => ({
         ETH: ENV_KEY === 'production' ? ChainId.MAINNET : ChainId.SEPILIA,
         BNB: ENV_KEY === 'production' ? ChainId.BSCMAINNET : ChainId.BSCTESTNET,
+        TRX: ENV_KEY === 'production' ? ChainId.TRXMAINNET : ChainId.TRXTESTNET,
         STT: ChainId.STT,
         DOGE: ChainId.DOGE,
         BCC: ENV_KEY === 'production' ? ChainId.BCCMAINNET : ChainId.BCCTESTNET
@@ -536,7 +537,7 @@ const DepositWithdraw = () => {
     changeSymbol,
     changeChain,
     birdegType,
-    DepositSTTDOGEAddress,
+    DepositAddress,
     config
   } = useDepositWithdow();
   const { switchChainAsync } = useSwitchChain();
@@ -561,7 +562,6 @@ const DepositWithdraw = () => {
         changeSymbol(item as TokenInfo);
       } else {
         if (isLoading) return;
-
         if (
           !birdegType &&
           !otherChains.includes(item.id) &&
@@ -633,6 +633,10 @@ const DepositWithdraw = () => {
     },
     [walletClient]
   );
+
+  const filterTRXChain = (birdegType: number, chain: ChainId) => {
+    return birdegType || !otherChains.includes(chain);
+  };
 
   return (
     <Flex
@@ -720,9 +724,9 @@ const DepositWithdraw = () => {
                 fontSize={'xs'}
                 lineHeight={'4'}
               >
-                {DepositSTTDOGEAddress}
+                {DepositAddress}
               </Text>
-              <Copy text={DepositSTTDOGEAddress || ''} />
+              <Copy text={DepositAddress || ''} />
             </Flex>
           </Box>
 
@@ -736,7 +740,7 @@ const DepositWithdraw = () => {
           >
             <QRCode
               size={122}
-              value={DepositSTTDOGEAddress || ''}
+              value={DepositAddress || ''}
             />
           </Box>
           <Button
@@ -819,7 +823,10 @@ const DepositWithdraw = () => {
             </AnimateBox>
           </Button>
         </Flex>
-        {(!birdegType && !otherChains.includes(chain)) || birdegType ? (
+        {(!birdegType &&
+          (!otherChains.includes(chain) ||
+            [ChainId.TRXMAINNET, ChainId.TRXTESTNET].includes(chain))) ||
+        birdegType ? (
           <>
             <Flex
               alignItems={'center'}
@@ -830,23 +837,30 @@ const DepositWithdraw = () => {
               mt={7.5}
               p={3}
             >
-              <Input
-                _focusVisible={{
-                  border: 'none'
-                }}
-                autoFocus
-                border={'none'}
-                onChange={onChange}
-                placeholder="0.00"
-                value={val}
-                w={'180px'}
-              />
-              <Box
-                bg={'white'}
-                h={'full'}
-                opacity={0.5}
-                w={'0.75px'}
-              ></Box>
+              {filterTRXChain(birdegType, chain) ? (
+                <>
+                  <Input
+                    _focusVisible={{
+                      border: 'none'
+                    }}
+                    autoFocus
+                    border={'none'}
+                    onChange={onChange}
+                    placeholder="0.00"
+                    value={val}
+                    w={'180px'}
+                  />
+                  <Box
+                    bg={'white'}
+                    h={'full'}
+                    opacity={0.5}
+                    w={'0.75px'}
+                  ></Box>
+                </>
+              ) : (
+                <Box w={'0px'}></Box>
+              )}
+
               <Flex
                 alignItems={'center'}
                 flex={1}
@@ -913,22 +927,26 @@ const DepositWithdraw = () => {
               </Flex>
             </Flex>
 
-            <Flex
-              justifyContent={'space-between'}
-              mt={5}
-            >
-              <Text>Balance {balance.text}</Text>
-              <Box
-                _hover={{
-                  opacity: 0.9
-                }}
-                color={'white'}
-                cursor={'pointer'}
-                onClick={handleMax}
+            {filterTRXChain(birdegType, chain) ? (
+              <Flex
+                justifyContent={'space-between'}
+                mt={5}
               >
-                MAX
-              </Box>
-            </Flex>
+                <Text>Balance {balance.text}</Text>
+                <Box
+                  _hover={{
+                    opacity: 0.9
+                  }}
+                  color={'white'}
+                  cursor={'pointer'}
+                  onClick={handleMax}
+                >
+                  MAX
+                </Box>
+              </Flex>
+            ) : (
+              <></>
+            )}
           </>
         ) : (
           <></>
@@ -1042,7 +1060,9 @@ const Bridge = () => {
   const updateWalletInfo = useUpdateWalletInfo();
 
   const { data } = useSWR<WalletInfo>(
-    userInfo ? REQUEST_API.wallet : null,
+    userInfo?.address
+      ? `${REQUEST_API.wallet}?address=${userInfo?.address}`
+      : null,
     url => ajaxGet(url as axiosUrlType),
     {
       revalidateOnFocus: false
@@ -1098,17 +1118,63 @@ const Bridge = () => {
             <Text
               fontFamily={'day'}
               fontSize={'3.5xl'}
+              fontWeight={'bold'}
               mb={8}
             >
               Bridge to Earn Rewards
             </Text>
             <Text
               fontSize={'xl'}
+              fontWeight={'bold'}
               lineHeight={'1.5'}
+              mb={4}
             >
-              Neura Points Pegged to the $BCC
-              <br /> Earn more points over time based on the amount you bridge.
+              Testnet Campaign
             </Text>
+            <Box
+              lineHeight={'1.5'}
+              mb={8}
+            >
+              Participate in cross-chain transactions on the testnet and join{' '}
+              <br />
+              our community for a chance to win an
+              <Text
+                display="inline"
+                fontWeight={'bold'}
+                ml="1"
+              >
+                Exclusive Early Bird NFT!
+              </Text>{' '}
+              <br />
+              Be an early supporter and shape the future of the Boundary
+              ecosystem.
+            </Box>
+            <Text
+              fontSize={'xl'}
+              fontWeight={'bold'}
+              lineHeight={'1.5'}
+              mb={4}
+            >
+              Mainnet Campaign
+            </Text>
+            <Box
+              lineHeight={'1.5'}
+              mb={8}
+            >
+              Bridge your assets on the Boundary platform and earn
+              <Text
+                display="inline"
+                fontWeight={'bold'}
+                ml="1"
+              >
+                10 points
+              </Text>{' '}
+              <br />
+              for every $1 worth of mainstream cryptocurrency bridged! Redeem{' '}
+              <br />
+              points for exclusive benefits and access to Boundary's expanding{' '}
+              <br /> ecosystem.
+            </Box>
           </Box>
           <Flex
             backdropFilter={'8px'}

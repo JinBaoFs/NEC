@@ -193,9 +193,9 @@ const GridCard = () => {
         />
 
         <ContentFilterCard
-          desc="The DPOW consensus is achieved through a small set of pre-approved validators, typically trusted entities that are incentivized to maintain the network's security and efficiency. Unlike PoW blockchains, a DPOW chain is able to maintain extremely low transaction fees, often much lower than even Solana."
+          desc="The Application Layer serves as the primary user interface for interacting with the Boundary AI platform. It provides built-in tools and applications designed for users of all technical expertise levels, enabling them to create, manage, and monetize AI assets. Key components include:"
           mt={'198px'}
-          title="Ultra-low gas fees"
+          title="Application Layer"
           w={'400px'}
         ></ContentFilterCard>
       </GridItem>
@@ -225,9 +225,9 @@ const GridCard = () => {
           w={'220px'}
         />
         <ContentFilterCard
-          desc="Smart contracts on the Boundary blockchain utilize AI-powered components for advanced functionality, as machine learning models are employed to automate complex business logic, perform risk analysis, and provide intelligent recommendations."
+          desc="The Transaction Layer is powered by the Boundary Chain blockchain infrastructure, enabling high-speed and secure transactions. It supports all AI-related activities, including ownership tracking, licensing, and attribution, through native blockchain protocols such as:"
           mt={'198px'}
-          title="Smart contracts"
+          title="Transaction Layer"
           w={'360px'}
         ></ContentFilterCard>
       </GridItem>
@@ -257,9 +257,9 @@ const GridCard = () => {
           w={'216px'}
         />
         <ContentFilterCard
-          desc="On-chain AI inferences are enabled for all developing dApps within the network, as it allows its oracle monitors the network, analyzes data, and makes adjustments to parameters like block time, gas limits, and reward schedules based on real-time conditions."
+          desc="The Data Layer acts as the backbone for managing data across the AI lifecycle. It integrates on-chain and off-chain components to optimize data storage, retrieval, and usage. Features include:"
           mt={'168px'}
-          title="AI integration"
+          title="Data Layer"
           w={'360px'}
         ></ContentFilterCard>
       </GridItem>
@@ -298,10 +298,10 @@ const GridCard = () => {
           <></>
         </FilterCard>
         <ContentFilterCard
-          desc="The Boundary security system continuously monitors on-chain activities for anomalies and threats, using behavioral analysis techniques and anomaly detection to identify and mitigate attacks or malicious activity."
+          desc="The Execution Layer provides the off-chain computational infrastructure necessary for AI functionalities. It dynamically allocates resources for AI training, inference, and multi-agent interactions while maintaining security and performance. Key protocols include:"
           mt={'201px'}
-          title="Blockchain Security"
-          w={'305px'}
+          title="Execution Layer"
+          w={'385px'}
         ></ContentFilterCard>
       </GridItem>
     </Grid>
@@ -385,7 +385,7 @@ const Boundary = () => {
                 fontSize={'3.5xl'}
                 lineHeight={'normal'}
               >
-                Why
+                What is
               </Heading>
               <Heading
                 // backgroundImage={
@@ -407,10 +407,12 @@ const Boundary = () => {
                 // eslint-disable-next-line react/no-unescaped-entities
                 w={'580px'}
               >
-                Welcome to the Boundary development community. The Boundary
-                network is an AI-driven repository for data and information.
-                It's a permanent and decentralized web stored inside an open,
-                DPOW-based ledger.
+                The core of Boundary Chain is a modular and lightweight AI
+                framework (Boundary AI Framework, BAF). Leveraging this
+                framework, the platform provides an open-source, modular toolset
+                that simplifies the construction of AI agents, allowing
+                developers to focus on creativity without worrying about the
+                technical implementation details.
               </Text>
               <Text
                 fontSize={'lg'}
@@ -418,10 +420,10 @@ const Boundary = () => {
                 mb={'10'}
                 w={'580px'}
               >
-                Built on a stable and mature DPOW foundation, Boundary is
+                {/* Built on a stable and mature DPOW foundation, Boundary is
                 ensured with security and efficiency. It leverages AI in various
                 ways to enhance its capacity and functionality. Let's build a
-                new decentralized Boundary!
+                new decentralized Boundary! */}
               </Text>
               <Link
                 href={DOCS_URL}
@@ -459,23 +461,23 @@ const Boundary = () => {
             letterSpacing={'-1.2px'}
             lineHeight={'normal'}
             mb={'60px'}
-            w={'1009px'}
+            w={'1200px'}
           >
             <Box mb={'10'}>
-              Boundary
+              Boundary Chain
               <Box
                 as="span"
                 color={'whiteAlpha.700'}
               >
                 {' '}
-                adopts a Proof of Authority (DPOW) consensus mechanism.
+                adopts a hybrid consensus mechanism, including POD and POW.
               </Box>
             </Box>
             <Text color={'whiteAlpha.700'}>
-              Authorities with proven track records and reputations are
-              accountable for the integrity of the network, providing faster
-              transaction confirmation times and lower energy consumption
-              compared to PoW.
+              That is, data proof and computing power proof of work, focusing on
+              providing a set of AI native functions to support the application
+              layer and seamlessly cooperate with the execution layer to achieve
+              powerful AI utility.
             </Text>
           </Box>
           <GridCard />

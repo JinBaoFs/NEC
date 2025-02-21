@@ -20,7 +20,8 @@ const initialState: {
     doge_account: '',
     stt_account: '',
     evm_eth_account: '',
-    evm_bnb_account: ''
+    evm_bnb_account: '',
+    trx_account: ''
   }
 };
 

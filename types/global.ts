@@ -54,6 +54,7 @@ export interface WalletInfo {
   stt_account: string;
   evm_eth_account: string;
   evm_bnb_account: string;
+  trx_account: string;
 }
 
 export interface TableLIst<T> {

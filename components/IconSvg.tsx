@@ -9,7 +9,7 @@ export const href = '/icons/sprite.svg?1.0.2';
 export { IconName };
 
 interface Props extends HTMLChakraProps<'div'> {
-  name: IconName | 'STT' | 'DOGE';
+  name: IconName | 'STT' | 'DOGE' | 'TRX';
   isLoading?: boolean;
 }
 

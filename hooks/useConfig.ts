@@ -1,6 +1,14 @@
 import { useMemo } from 'react';
 import { IconName } from '@/components/IconSvg';
-import { DISCORD_URL, GITHUB_URL, MEDIUM_URL, TWITTER_URL } from '@/constants';
+import {
+  DISCORD_URL,
+  GITHUB_URL,
+  MEDIUM_URL,
+  TWITTER_URL,
+  DOCS_URL,
+  WHITE_PAPER_URL,
+  MEDAL_URL
+} from '@/constants';
 
 export const useHeaderConfig = () => {
   const list = useMemo(
@@ -22,17 +30,25 @@ export const useHeaderConfig = () => {
           },
           {
             name: 'Documentation',
-            path: ''
+            path: DOCS_URL
           },
           {
             name: 'Developer Airdrop',
             path: ''
+          },
+          {
+            name: 'White Paper',
+            path: WHITE_PAPER_URL
           }
         ]
       },
       {
         name: 'BRIDGE',
         path: '/bridge'
+      },
+      {
+        name: '创世勋章',
+        path: MEDAL_URL
       }
     ],
     []

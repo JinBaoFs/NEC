@@ -18,6 +18,14 @@ import { ConfigProps, WalletInfo } from '@/types/global';
 import useNetworkError from './useNetworkError';
 import { useNativeBalance } from './useBalance';
 
+const USDT_TYPE: any = {
+  1: 1,
+  11155111: 1,
+  56: 2,
+  97: 2,
+  TRX: 3,
+  TRXTEST: 3
+};
 const useDepositWithdow = () => {
   const { address } = useAccount();
   const [val, setVal] = useState('');
@@ -67,21 +75,21 @@ const useDepositWithdow = () => {
         text: Number(0).toFixed(Decimal)
       };
     const bal = ((symbol.address ? _data?.result : data) as bigint) || 0n;
-
     return {
       bal,
       text: toFixedDown(
         formatUnits(
           bal,
           [ChainId.MAINNET].includes(chain as ChainId) &&
-            symbol.symbol === 'USDT'
+            symbol.symbol === 'USDT' &&
+            !birdegType
             ? 6
             : 18
         ),
         Decimal
       )
     };
-  }, [symbol, _data, data, chain, isNetwork]);
+  }, [symbol, _data, data, chain, isNetwork, birdegType]);
 
   const handleMax = useCallback(() => {
     setVal(balance.text);
@@ -153,15 +161,14 @@ const useDepositWithdow = () => {
       USDT: {
         abi: NUSDTABI,
         args: [
-          [ChainId.MAINNET, ChainId.SEPILIA].includes(chain) ? 1 : 2,
+          USDT_TYPE[chain],
           parseEther(val),
-          address as Hash
+          isOther ? withdrawAddress : (address as Hash)
         ]
       }
     };
     try {
       setFlag.on();
-
       await writeContractAsync({
         address: symbol.address as Hash,
         functionName: 'burn',
@@ -229,7 +236,6 @@ const useDepositWithdow = () => {
         };
       }
     }
-
     if (birdegType && isOther) {
       if (!withdrawAddress) {
         return {
@@ -259,6 +265,15 @@ const useDepositWithdow = () => {
             status: true
           };
         }
+        if (
+          (symbol.symbol === 'TRX' || symbol.symbol === 'USDT') &&
+          (withdrawAddress.indexOf('T') !== 0 || withdrawAddress.length !== 34)
+        ) {
+          return {
+            text: 'Format error of address',
+            status: true
+          };
+        }
       }
     }
 
@@ -268,12 +283,9 @@ const useDepositWithdow = () => {
     };
   }, [val, balance, isOther, config, symbol, withdrawAddress, birdegType]);
 
-  const DepositSTTDOGEAddress = useMemo(() => {
+  const DepositAddress = useMemo(() => {
     if (!walletInfo || !symbol.symbol) return '';
-
-    return walletInfo[
-      symbol.symbol === 'DOGE' ? 'doge_account' : 'stt_account'
-    ];
+    return walletInfo['trx_account'];
   }, [walletInfo, symbol]);
 
   return {
@@ -294,7 +306,7 @@ const useDepositWithdow = () => {
     flag,
     withdrawAddress,
     setWithDrawAddress,
-    DepositSTTDOGEAddress,
+    DepositAddress,
     config
   };
 };

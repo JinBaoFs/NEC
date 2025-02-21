@@ -94,19 +94,19 @@ export default function Home() {
             lineHeight={'normal'}
             mb={'50px'}
           >
-            <StaggeredFadeIn text="Verifiable Agents for Any Task" />
+            <StaggeredFadeIn text="High- performance AI native modular public chain" />
           </Heading>
 
           <Heading
             fontFamily={'day'}
-            fontSize={'5xl'}
+            fontSize={'4xl'}
             lineHeight={'normal'}
             maxW={'1300px'}
             mb={'150px'}
           >
-            Create smart web3 systems by just stating your intent. Boundary
-            powers agenticmarkets that find optimal solutions with zero
-            counterparty risk.
+            Boundary Chain is a high-performance, AI-native blockchain that
+            enables fair, secure, and decentralized AI asset creation,
+            collaboration, and trade.
             {/* <StaggeredFadeIn text="Create smart web3 systems by just stating your intent. Boundary powers agenticmarkets that find optimal solutions with zero counterparty risk." /> */}
           </Heading>
           <Flex gap="10">

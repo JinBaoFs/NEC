@@ -5,7 +5,10 @@ import { IconName } from '@/components/IconSvg';
 import { ENV_KEY_TYPE } from '@/types/global';
 
 /* javascript-obfuscator:disable */
+export const MEDAL_URL = process.env.NEXT_PUBLIC_MEDAL_URL as string;
 export const DOCS_URL = process.env.NEXT_PUBLIC_DOCS_URL as string;
+export const WHITE_PAPER_URL = process.env
+  .NEXT_PUBLIC_WHITE_PAPER_URL as string;
 
 export const DISCORD_URL = process.env.NEXT_PUBLIC_DISCORD_URL as string;
 export const TWITTER_URL = process.env.NEXT_PUBLIC_TWITTER_URL as string;
@@ -35,6 +38,8 @@ export enum ChainId {
   // OKEX_TESTNET = 65,
   STT = 'STT',
   DOGE = 'DOGE',
+  TRXMAINNET = 'TRX',
+  TRXTESTNET = 'TRXTEST',
   // NECTESTNET = 4428,
   // NEC = 4429,
   BCCMAINNET = 3020,
@@ -60,7 +65,7 @@ export enum BIRDGE_TYPE {
 export interface ChainInfo {
   name: string;
   id: ChainId;
-  icon: IconName | 'STT' | 'DOGE';
+  icon: IconName | 'STT' | 'DOGE' | 'TRX';
 }
 
 export const Decimal = 5;
@@ -98,6 +103,16 @@ export const Chains: {
     id: ChainId.STT,
     icon: 'STT'
   },
+  [ChainId.TRXTESTNET]: {
+    name: 'Shasta Testnet',
+    id: ChainId.TRXTESTNET,
+    icon: 'TRX'
+  },
+  [ChainId.TRXMAINNET]: {
+    name: 'Shasta Testnet',
+    id: ChainId.TRXMAINNET,
+    icon: 'TRX'
+  },
   [ChainId.BCCMAINNET]: {
     name: 'Boundary',
     id: ChainId.BCCMAINNET,
@@ -120,19 +135,26 @@ export const Chains: {
   // }
 };
 
-export const otherChains: ChainId[] = [ChainId.STT, ChainId.DOGE];
+export const otherChains: ChainId[] = [
+  ChainId.STT,
+  ChainId.DOGE,
+  ChainId.TRXTESTNET,
+  ChainId.TRXMAINNET
+];
 
 export const swapChainList: ChainInfo[] =
   ENV_KEY === 'production'
     ? [
         Chains[ChainId.MAINNET],
-        Chains[ChainId.BSCMAINNET]
+        Chains[ChainId.BSCMAINNET],
+        Chains[ChainId.TRXMAINNET]
         // Chains[ChainId.DOGE],
         // Chains[ChainId.STT]
       ]
     : [
         Chains[ChainId.SEPILIA],
-        Chains[ChainId.BSCTESTNET]
+        Chains[ChainId.BSCTESTNET],
+        Chains[ChainId.TRXTESTNET]
         // Chains[ChainId.DOGE],
         // Chains[ChainId.STT]
       ];
@@ -145,7 +167,7 @@ export interface TokenInfo {
   name: string;
   symbol: string;
   symbolName: string;
-  icon: IconName | 'STT' | 'DOGE';
+  icon: IconName | 'STT' | 'DOGE' | 'TRX';
   address?: Hash;
   NECAddres: Hash;
 }
@@ -214,6 +236,40 @@ export const TokenList: TokenInfo[] = [
     id: ChainId.BSCTESTNET,
     name: 'USDT Token',
     address: '0xa1cfbA056ff042341880790878ee9213216ec67A',
+    symbol: 'USDT',
+    symbolName: 'WUSDT',
+    icon: 'USDT',
+    NECAddres: '0xD0bc8E86cd94190CFD1ac2BeDeb9Aa303bdc905b'
+  },
+  {
+    id: ChainId.TRXMAINNET,
+    name: 'TRON Token',
+    symbol: 'TRX',
+    icon: 'TRX',
+    symbolName: 'WTRX',
+    NECAddres: '0x32ef9CB208F70Ba9AF20067a009e6E85E33AFDAD'
+  },
+  {
+    id: ChainId.TRXMAINNET,
+    name: 'USDT Token',
+    address: '0x',
+    symbol: 'USDT',
+    symbolName: 'WUSDT',
+    icon: 'USDT',
+    NECAddres: '0xB228a19d59238ACC3e6eEC0Df1CB73aEDcd2BE02'
+  },
+  {
+    id: ChainId.TRXTESTNET,
+    name: 'TRON Token',
+    symbol: 'TRX',
+    icon: 'TRX',
+    symbolName: 'WTRX',
+    NECAddres: '0xa44c8bb29AA4E3BD11B6C7Ea0ac22CC534a8a3c5'
+  },
+  {
+    id: ChainId.TRXTESTNET,
+    name: 'USDT Token',
+    address: '0x',
     symbol: 'USDT',
     symbolName: 'WUSDT',
     icon: 'USDT',

@@ -7,8 +7,8 @@ import {
   argentWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets';
-import { bsc, bscTestnet, mainnet, sepolia } from 'viem/chains';
-import { BCC_CHAIN, BCC_TEST_CHAIN } from './chain';
+import { bsc, bscTestnet, mainnet } from 'viem/chains';
+import { BCC_CHAIN, BCC_TEST_CHAIN, SPEOLIA_CHAIN } from './chain';
 import { ENV_KEY } from '.';
 
 export const config = getDefaultConfig({
@@ -16,10 +16,10 @@ export const config = getDefaultConfig({
   projectId: '7748b82ece2b86510b629efd07bb877a',
   ...(ENV_KEY === 'production'
     ? {
-        chains: [mainnet, BCC_CHAIN, bsc]
+        chains: [BCC_CHAIN, mainnet, bsc]
       }
     : {
-        chains: [BCC_TEST_CHAIN, bscTestnet, sepolia]
+        chains: [BCC_TEST_CHAIN, SPEOLIA_CHAIN, bscTestnet]
       }),
   wallets: [
     {
