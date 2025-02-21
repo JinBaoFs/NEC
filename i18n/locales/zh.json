@@ -1,0 +1,21 @@
+{
+  "About us": "关于我们",
+  "Connect Wallet": "连接钱包",
+  "Connecting": "连接钱包中...",
+  "Index": {
+    "welcome": "欢迎回来，{name}"
+  },
+  "Locale Configuration": "区域设置",
+  "Marketplace": "RWA 市场",
+  "Portfolio": "我的资产",
+  "Transactions": "历史记录",
+  "USDS": "USDS",
+  "Whitepaper": "白皮书",
+  "entry": "进入",
+  "transactions": {
+    "Action": "操作",
+    "Amount": "数量",
+    "Asset": "资产",
+    "Date": "日期"
+  }
+}
